@@ -1,22 +1,11 @@
 ---
-- name: Docker installation
+- name: Docker prometheus installation
   hosts: localhost
   gather_facts: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
   become: true
   tasks:
-
-  #TODO: ansible-galaxy collection install community.general --ignore-certs
-
-  - name: Install ansible python packages
-    pip:
-      name:
-        - docker
-        - requests
-      executable: pip3
-      extra_args: --user
-
   - name: Stop prometheus container on server
     docker_container:
       name: prometheus
@@ -53,42 +42,5 @@
         - prometheus-data:/prometheus
 
 
-  - name: Stop grafana container on server
-    docker_container:
-      name: grafana
-      state: absent
+  
 
-  - name: Create a grafana volume
-    docker_volume:
-      name: grafana-data
-      recreate: always
-
-  - name: Start grafana container on server
-    docker_container:
-      name: grafana
-      image: grafana/grafana
-      state: started
-      restart: yes
-      restart_policy: always
-      ports:
-        - "3000:3000"
-      volumes:
-        - grafana-data:/var/lib/grafana
-
-  - name: Create a volume
-    docker_volume:
-      name: node-exporter-storage
-      recreate: always
-
-  - name: Start node-exporter container 
-    docker_container:
-      name: node-exporter
-      image: quay.io/prometheus/node-exporter:latest
-      state: started
-      restart: yes
-      restart_policy: always
-      network_mode: host
-      pid_mode: host
-      read_only: yes
-      volumes:
-        - /:/host:ro,rslave

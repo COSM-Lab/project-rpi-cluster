@@ -1,0 +1,15 @@
+---
+- name: Docker prometheus installation
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  become: true
+  tasks:
+  - name: Install ansible python packages
+    pip:
+      name:
+        - docker
+        - requests
+      executable: pip3
+      extra_args: --user

@@ -1,0 +1,25 @@
+---
+- name: Docker node-exporter installation
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  become: true
+  tasks:
+  - name: Create a volume
+    docker_volume:
+      name: node-exporter-storage
+      recreate: always
+
+  - name: Start node-exporter container 
+    docker_container:
+      name: node-exporter
+      image: quay.io/prometheus/node-exporter:latest
+      state: started
+      restart: yes
+      restart_policy: always
+      network_mode: host
+      pid_mode: host
+      read_only: yes
+      volumes:
+        - /:/host:ro,rslave

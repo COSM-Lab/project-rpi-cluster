@@ -1,0 +1,29 @@
+---
+- name: Docker grafana installation
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  become: true
+  tasks:
+  - name: Stop grafana container on server
+    docker_container:
+      name: grafana
+      state: absent
+
+  - name: Create a grafana volume
+    docker_volume:
+      name: grafana-data
+      recreate: always
+
+  - name: Start grafana container on server
+    docker_container:
+      name: grafana
+      image: grafana/grafana
+      state: started
+      restart: yes
+      restart_policy: always
+      ports:
+        - "3000:3000"
+      volumes:
+        - grafana-data:/var/lib/grafana
