@@ -1,0 +1,14 @@
+---
+- name: Install packages
+  hosts: available_rpi
+  become: true
+
+  tasks:
+  - name: update all
+    raw: apt-get update 
+
+  - name: install vim
+    apt:
+      name: vim
+      state: latest
+  

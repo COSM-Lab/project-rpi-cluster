@@ -1,0 +1,41 @@
+---
+- name: Configure network based on hostname
+  hosts: available_rpi
+  gather_facts: true
+  become: true
+
+  tasks:
+
+### TODO: Consider reversed operation: from ip address set apropriate  hostname
+
+  # - name: Get number of hostname
+  #   shell: "echo  {{ansible_hostname | regex_replace('[^0-9]','')}}"
+
+  - name: Edit static ip_address
+    lineinfile:
+      path: /etc/dhcpcd.conf
+      regexp: '^static ip_address=192.168.1.\d*'
+      line: 'static ip_address=192.168.1.1{{ansible_hostname}} | regex_replace("[^0-9]","") | "%02d"/24' 
+      state: present
+      create: yes
+
+### TODO: change in /etc/hosts
+
+  - name: Edit static routers
+    lineinfile:
+      path: /etc/dhcpcd.conf
+      regexp: '^static routers=192.168.1.\d*'
+      line: 'static routers=192.168.1.1'
+      state: present
+      create: yes     
+
+  - name: Make sure dhcp is disabled
+    lineinfile:
+      path: /etc/dhcpcd.conf
+      regexp: '^nodhcp$'
+      insertafter: '^interface wlan0$'
+      line: 'nodhcp'
+      state: present
+
+  - name: Check ip correctness
+    shell: "echo {{ansible_default_ipv4.address}}"
