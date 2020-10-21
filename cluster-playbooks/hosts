@@ -1,0 +1,8 @@
+[available_rpi]
+# ip addresses defined in /etc/hosts
+stand1
+stand2
+stand3
+stand4
+stand5 
+
