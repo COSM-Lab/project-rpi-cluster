@@ -1,0 +1,16 @@
+127.0.0.1	localhost
+::1		localhost ip6-localhost ip6-loopback
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+
+127.0.1.1	master100
+
+100.100.100.1  stand1
+100.100.100.2  stand2
+100.100.100.3  stand3
+100.100.100.4  stand4
+100.100.100.5  stand5
+100.100.100.6  stand6
+100.100.100.7  stand7
+100.100.100.8  stand8
+100.100.100.9  stand9

@@ -1,6 +1,6 @@
 ---
 - name: Install packages
-  hosts: available_rpi
+  hosts: cluster
   become: true
 
   tasks:
