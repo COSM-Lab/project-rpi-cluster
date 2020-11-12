@@ -1,0 +1,16 @@
+---
+- name: Install ssh keys into user's authorized_key
+  hosts: cluster
+  gather_facts: false
+  become: true
+  vars:
+    key_path: '../utils/sdPiPride'
+  tasks:
+    - name: copy SSH keys into machines
+      authorized_key:
+        user: pi
+        state: present
+        key: "{{ lookup('file', '{{ key_path }}') }}"
+        manage_dir: True
+        exclusive: yes
+      

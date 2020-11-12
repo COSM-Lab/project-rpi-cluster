@@ -1,10 +1,17 @@
 ---
 - name: Configure network based on hostname
-  hosts: available_rpi
+  hosts: cluster
   gather_facts: true
   become: true
+  vars: 
+    config_path: /etc/dhcpcd.conf
 
   tasks:
+
+  # - name: Delete file
+  #   file: 
+  #     path: dhcpcd.conf
+  #     state: absent
 
 ### TODO: Consider reversed operation: from ip address set apropriate  hostname
 
@@ -13,29 +20,43 @@
 
   - name: Edit static ip_address
     lineinfile:
-      path: /etc/dhcpcd.conf
-      regexp: '^static ip_address=192.168.1.\d*'
-      line: 'static ip_address=192.168.1.1{{ansible_hostname}} | regex_replace("[^0-9]","") | "%02d"/24' 
+      path: '{{ config_path }}'
+      regexp: '^static ip_address=\d*.\d*.\d*.\d*'
+      line: 'static ip_address=100.100.100.{{ ansible_hostname | regex_replace("[^0-9]","")}}/24' 
       state: present
-      create: yes
 
 ### TODO: change in /etc/hosts
 
   - name: Edit static routers
     lineinfile:
-      path: /etc/dhcpcd.conf
-      regexp: '^static routers=192.168.1.\d*'
-      line: 'static routers=192.168.1.1'
-      state: present
-      create: yes     
+      path: '{{ config_path }}'
+      regexp: '^static routers=\d*.\d*.\d*.\d*'
+      line: 'static routers=100.100.100.100'
+      state: present 
+
+  - name: Edit static domain_name_servers
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static domain_name_servers=.*$'
+      line: "static domain_name_servers=100.100.100.100 8.8.8.8" 
+      state: present    
 
   - name: Make sure dhcp is disabled
     lineinfile:
-      path: /etc/dhcpcd.conf
+      path: '{{ config_path }}'
       regexp: '^nodhcp$'
-      insertafter: '^interface wlan0$'
+      insertafter: '^interface eth0$'
       line: 'nodhcp'
       state: present
 
   - name: Check ip correctness
     shell: "echo {{ansible_default_ipv4.address}}"
+
+  - name: Restart dhcpcd service, also issue daemon-reload to pick up config changes
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: dhcpcd
+  
+  # - name: Flush ip addresses on eth0 interface
+  #   shell: ip addr flush dev eth0 
