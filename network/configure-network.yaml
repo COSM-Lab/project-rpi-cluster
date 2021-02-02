@@ -1,10 +1,11 @@
 ---
 - name: Configure network based on hostname
-  hosts: cluster
+  hosts: configurable-pilot
   gather_facts: true
   become: true
   vars: 
     config_path: /etc/dhcpcd.conf
+    target_ip: 1
 
   tasks:
 
@@ -22,7 +23,14 @@
     lineinfile:
       path: '{{ config_path }}'
       regexp: '^static ip_address=\d*.\d*.\d*.\d*'
-      line: 'static ip_address=100.100.100.{{ ansible_hostname | regex_replace("[^0-9]","")}}/24' 
+      line: 'static ip_address=100.100.100.{{ target_ip }}/24' 
+      state: absent
+
+  - name: Edit static ip_address
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static ip_address=\d*.\d*.\d*.\d*'
+      line: 'static ip_address=100.100.100.{{ target_ip }}/24' 
       state: present
 
 ### TODO: change in /etc/hosts
@@ -31,15 +39,30 @@
     lineinfile:
       path: '{{ config_path }}'
       regexp: '^static routers=\d*.\d*.\d*.\d*'
-      line: 'static routers=100.100.100.100'
-      state: present 
+      line: 'static routers=192.168.88.1'
+      state: absent
+  
+  - name: Edit static routers
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static routers=\d*.\d*.\d*.\d*'
+      line: 'static routers=192.168.88.1'
+      state: present
+   
 
   - name: Edit static domain_name_servers
     lineinfile:
       path: '{{ config_path }}'
       regexp: '^static domain_name_servers=.*$'
-      line: "static domain_name_servers=100.100.100.100 8.8.8.8" 
-      state: present    
+      line: "static domain_name_servers=192.168.88.1 8.8.8.8" 
+      state: absent
+
+  - name: Edit static domain_name_servers
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static domain_name_servers=.*$'
+      line: "static domain_name_servers=192.168.88.1 8.8.8.8" 
+      state: present          
 
   - name: Make sure dhcp is disabled
     lineinfile:
@@ -57,6 +80,10 @@
       state: restarted
       daemon_reload: yes
       name: dhcpcd
+
+  - name: Set a hostname
+    hostname:
+      name: pilot-{{target_ip}}
   
   # - name: Flush ip addresses on eth0 interface
   #   shell: ip addr flush dev eth0 
