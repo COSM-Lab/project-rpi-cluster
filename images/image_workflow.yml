@@ -1,0 +1,58 @@
+---
+- name: Build image
+  hosts: image-deployer
+  #become: true
+
+  tasks:
+
+  - name: Delete deploy directory
+    file:
+      path: /home/debian/pi-gen-false/deploy/
+      state: absent
+
+  - name: Recreate deploy directory
+    file:
+      path: /home/debian/pi-gen-false/deploy/
+      state: directory
+      owner: debian
+      group: debian
+      mode: '0755'
+      recurse: yes
+
+  - name: Building image
+    shell: ./build.sh
+    become: true
+    args:
+      chdir: /home/debian/pi-gen-false/
+
+  - name: Find zip file from pi-gen-debian
+    find:
+      paths: /home/debian/pi-gen-false/deploy/
+      patterns: '*.zip'
+    register: zip_file
+
+  - name: Fetch zip file from pi-gen-debian to com331-b 
+    ansible.builtin.fetch:
+      src: "{{zip_file.files[0].path}}"
+      dest: /home/com331-b/images/
+      flat: yes
+
+- name: Build image
+  hosts: com_express
+  tasks:
+  - name: Find zip file in images directory
+    find:
+      paths: /home/com331-b/images/
+      patterns: '*.zip'
+    register: zip_file
+
+  - name: Unarchive a file that is already on the remote machine
+    ansible.builtin.unarchive:
+      src: "{{zip_file.files[0].path}}"
+      dest: /home/com331-b/images/
+
+  - name: Burn image
+    shell: time ./build.sh
+    become: yes
+    args:
+      chdir: /home/debian/pi-gen-false    
