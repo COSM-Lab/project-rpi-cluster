@@ -1,0 +1,9 @@
+git unzip zip curl epel-release 
+
+git-lfs:
+curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh
+
+sudo yum install git-lfs
+git lfs install
+
+git lfs pull
