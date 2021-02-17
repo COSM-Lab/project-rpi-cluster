@@ -10,6 +10,16 @@ if [ -v WPA_COUNTRY ]; then
 	echo "country=${WPA_COUNTRY}" >> "${ROOTFS_DIR}/etc/wpa_supplicant/wpa_supplicant.conf"
 fi
 
+cat << 'EOF' >> "${ROOTFS_DIR}/etc/dhcpcd.conf"
+
+interface eth0
+nodhcp
+static ip_address=100.100.100.99/24
+static routers=192.168.88.1
+static domain_name_servers=192.168.88.1 8.8.8.8
+EOF
+
+
 if [ -v WPA_ESSID ] && [ -v WPA_PASSWORD ]; then
 on_chroot <<EOF
 set -o pipefail
