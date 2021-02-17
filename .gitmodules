@@ -1,0 +1,3 @@
+[submodule "ClusterMonitor"]
+	path = ClusterMonitor
+	url = https://github.com/KalininDL/ClusterMonitor
