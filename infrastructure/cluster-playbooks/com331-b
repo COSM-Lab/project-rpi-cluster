@@ -1,4 +1,10 @@
-git unzip zip curl epel-release 
+ epel-release update 
+ 
+ pip3 git unzip zip curl python3-pip
+
+authorized_keys
+
+save private key sdPiPilots key
 
 git-lfs:
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh
@@ -7,3 +13,14 @@ sudo yum install git-lfs
 git lfs install
 
 git lfs pull
+
+
+ansible hosts
+
+pip3 install ansible --user
+
+
+ sudo cp utils/etc/ansible/hosts /etc/ansible/hosts 
+sudo cp utils/etc//hosts /etc/hosts 
+
+host_key_checking = False in ansible.cfg

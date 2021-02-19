@@ -1,16 +1,16 @@
-127.0.0.1	localhost
-::1		localhost ip6-localhost ip6-loopback
-ff02::1		ip6-allnodes
-ff02::2		ip6-allrouters
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 
-127.0.1.1	master100
 
-100.100.100.1  stand1
-100.100.100.2  stand2
-100.100.100.3  stand3
-100.100.100.4  stand4
-100.100.100.5  stand5
-100.100.100.6  stand6
-100.100.100.7  stand7
-100.100.100.8  stand8
-100.100.100.9  stand9
+100.100.100.99 pilot-X
+
+100.100.100.1 pilot-1
+100.100.100.2 pilot-2
+100.100.100.3 pilot-3
+100.100.100.4 pilot-4
+100.100.100.5 pilot-5
+100.100.100.6 pilot-6
+100.100.100.7 pilot-7
+100.100.100.8 pilot-8
+100.100.100.9 pilot-9
+100.100.100.10 pilot-10
