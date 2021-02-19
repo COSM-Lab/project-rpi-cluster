@@ -24,3 +24,5 @@ pip3 install ansible --user
 sudo cp utils/etc//hosts /etc/hosts 
 
 host_key_checking = False in ansible.cfg
+
+ansible-playbook network/reconfigure-pilot.yaml -e "source_pilot=6 target_pilot=1" -u pilot --ask-become-pass
