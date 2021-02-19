@@ -1,7 +1,7 @@
 ---
-- name: Configure network based on hostname
+- name: Reconfigure source pilot
   hosts: 'pilot-{{ source_pilot }}'
-  gather_facts: true
+  gather_facts: false
   become: true
   vars: 
     config_path: /etc/dhcpcd.conf
@@ -62,7 +62,7 @@
     delegate_to: 'pilot-{{ target_pilot }}'
 
 
-- name: Configure network based on hostname
+- name: Reconfigure target pilot
   hosts: 'pilot-{{ target_pilot }}'
   gather_facts: true
   become: true
