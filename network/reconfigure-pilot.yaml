@@ -5,7 +5,7 @@
   become: true
   vars: 
     config_path: /etc/dhcpcd.conf
-    source_pilot: 99
+    source_pilot: X
     target_pilot: 5
 
   tasks:
