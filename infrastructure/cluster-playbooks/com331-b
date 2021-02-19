@@ -22,13 +22,14 @@ ansible hosts
 pip3 install ansible --user
 
 
- sudo cp utils/etc/ansible/hosts /etc/ansible/hosts 
-sudo cp utils/etc//hosts /etc/hosts 
+sudo cp utils/etc/ansible/hosts /etc/ansible/hosts 
+sudo cp utils/etc/hosts /etc/hosts 
 
 host_key_checking = False in ansible.cfg
 
 ansible-playbook network/reconfigure-pilot.yaml -e "source_pilot=6 target_pilot=1" -u pilot --ask-become-pass
 
+ansible-playbook network/reconfigure-pilot.yaml -e "target_pilot=8" -u pilot --private-key=~/.ssh/sdPiLots -K
 
 chmod 700 ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
