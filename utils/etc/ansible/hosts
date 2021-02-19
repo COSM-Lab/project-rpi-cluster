@@ -13,6 +13,13 @@ pilot-7
 pilot-8
 pilot-9
 pilot-10
+pilot-11
+pilot-12
+pilot-13
+pilot-14
+pilot-15
+pilot-16
+pilot-17
 
 [cluster:vars]
 ansible_ssh_user=pilot
