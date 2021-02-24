@@ -1,0 +1,5 @@
+echo "-k" > ~/.curlrc
+
+curl -sSL -k https://get.docker.com | sh
+
+sudo usermod -aG pilot
