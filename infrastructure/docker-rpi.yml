@@ -1,0 +1,22 @@
+---
+- name: Docker installation
+  hosts: cluster
+  gather_facts: false
+  #become: true
+  tasks:
+
+  - name: Download docker.sh installer
+    get_url:
+      url: https://get.docker.com
+      dest: /tmp/docker.sh
+      validate_certs: no
+
+  - name: Run a docker installation script 
+    ansible.builtin.script: /tmp/docker.sh
+
+  - name: Add the user 'pilot' appending the group 'docker'
+    ansible.builtin.user:
+      name: pilot
+      groups: docker
+      append: yes
+

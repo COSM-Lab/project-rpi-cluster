@@ -1,6 +1,6 @@
  epel-release update 
  
- pip3 git unzip zip curl python3-pip
+ pip3 git unzip zip curl python3-pip bind-utils
 
 sudo yum install gcc-c++ make
 
@@ -36,3 +36,5 @@ chmod 600 ~/.ssh/authorized_keys
 
 sudo ip addr add 100.100.100.100/24 dev eno3
 
+
+ansible-galaxy collection install community.general --ignore-certs
