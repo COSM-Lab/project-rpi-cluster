@@ -1,0 +1,72 @@
+---
+- name: Docker installation
+  hosts: pilot-11
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  #become: true
+  tasks:
+
+  # - name: Install python2
+  #   apt:
+  #     name: python2
+  #     state: present
+  #   become: true
+
+  - name: Change sshd config for client
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^ClientAliveInterval'
+      line: ClientAliveInterval 300
+    become: true
+
+  - name: Change sshd config for client
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^ClientAliveCountMax'
+      line: ClientAliveCountMax 5
+    become: true
+
+  - name: Change sshd config for client
+    ansible.builtin.lineinfile:
+      path: /etc/ssh/sshd_config
+      regexp: '^TCPKeepAlive yes'
+      line: TCPKeepAlive yes
+    become: true
+
+  - name: Download docker.sh installer
+    get_url:
+      url: https://get.docker.com/rootless
+      dest: ~/docker.sh
+      validate_certs: no
+      
+  - name: Change file ownership, group and permissions
+    ansible.builtin.file:
+      path:  ~/docker.sh
+      owner: pilot
+      group: pilot
+      mode: u+x,g-x
+
+  - name: Run a docker installation script 
+    ansible.builtin.shell:  ~/docker.sh
+    retries: 30
+    delay: 10
+
+  - name: Add the user 'pilot' appending the group 'docker'
+    ansible.builtin.user:
+      name: pilot
+      groups: docker
+      append: yes
+
+  - name: Start node-exporter container 
+    docker_container:
+      name: node-exporter
+      image: quay.io/prometheus/node-exporter:latest
+      state: started
+      restart: yes
+      network_mode: host
+      pid_mode: host
+      read_only: yes
+      volumes:
+        - /:/host:ro,rslave
+
