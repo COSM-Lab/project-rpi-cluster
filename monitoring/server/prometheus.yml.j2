@@ -16,5 +16,6 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
-      - targets: ['100.100.100.100:9090','100.100.100.10:9100']
+      - targets: [{% for i in range(10) %}'pilot-{{ i }}:9100',{% if loop.last %}'pilot-{{ i + 1 }}:9100'{% endif %}{% endfor %}]
+      
 
