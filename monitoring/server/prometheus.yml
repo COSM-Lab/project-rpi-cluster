@@ -16,6 +16,6 @@ scrape_configs:
     scrape_interval: 5s
 
     static_configs:
-      - targets: ['pilot-0:9100','pilot-1:9100','pilot-2:9100','pilot-3:9100','pilot-4:9100','pilot-5:9100','pilot-6:9100','pilot-7:9100','pilot-8:9100','pilot-9:9100','pilot-10:9100']
+      - targets: ['localhost:9100','pilot-0:9100','pilot-1:9100','pilot-2:9100','pilot-3:9100','pilot-4:9100','pilot-5:9100','pilot-6:9100','pilot-7:9100','pilot-8:9100','pilot-9:9100','pilot-10:9100']
       
 
