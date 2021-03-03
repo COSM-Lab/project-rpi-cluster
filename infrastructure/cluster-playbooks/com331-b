@@ -38,3 +38,7 @@ sudo ip addr add 100.100.100.100/24 dev eno3
 
 
 ansible-galaxy collection install community.general --ignore-certs
+
+pip3 install docker docker-py --user
+pip install --upgrade pip
+sudo yum install libselinux-python3

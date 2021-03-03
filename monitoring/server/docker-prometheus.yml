@@ -1,0 +1,66 @@
+---
+- name: Docker installation
+  hosts: localhost
+  gather_facts: false
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+  # become: true
+  tasks:
+
+  #TODO: ansible-galaxy collection install community.general --ignore-certs
+
+  - name: Install ansible python packages
+    pip:
+      name:
+        - docker
+        - requests
+      executable: pip3
+      extra_args: --user
+
+  - name: Stop prometheus container on server
+    docker_container:
+      name: prometheus
+      state: absent      
+
+  - name: Create a volume
+    docker_volume:
+      name: prometheus-storage
+
+  - name: Template a prometheus config file
+    ansible.builtin.template:
+      src: /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml.j2
+      dest: /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml
+
+    
+  - name: Start prometheus monitoring container on server
+    docker_container:
+      name: prometheus
+      image: prom/prometheus
+      state: started
+      restart: yes
+      ports:
+      - "9090:9090"
+      volumes:
+        - /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml:/etc/prometheus/prometheus.yml
+        - prometheus-storage:/prometheus
+
+
+  - name: Stop grafana container on server
+    docker_container:
+      name: grafana
+      state: absent
+
+  - name: Create a volume
+    docker_volume:
+      name: grafana-storage
+
+  - name: Start grafana container on server
+    docker_container:
+      name: grafana
+      image: grafana/grafana
+      state: started
+      restart: yes
+      ports:
+        - "3000:3000"
+      volumes:
+        - grafana-storage:/var/lib/grafana
