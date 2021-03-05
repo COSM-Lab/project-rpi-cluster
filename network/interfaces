@@ -1,0 +1,28 @@
+# https://www.dmosk.ru/miniinstruktions.php?mini=router-centos
+# https://devops.ionos.com/tutorials/deploy-outbound-nat-gateway-on-centos-7/
+
+# /etc/sysconfig/network-scripts/ifcfg-eno3 
+BOOTPROTO=dhcp
+DEVICE=eno3
+ONBOOT=yes
+TYPE=Ethernet
+PROXY_METHOD=none
+BROWSER_ONLY=no
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=no
+IPV6INIT=no
+NAME="System eno3"
+UUID=24871ea9-4411-efbd-924f-49cd9fbda6e2
+GATEWAY=192.168.88.1
+
+# /etc/sysconfig/network-scripts/ifcfg-enp8s0
+BOOTPROTO="static"
+IPADDR="100.100.100.100"
+NETMASK="255.255.255.0"
+DEVICE="enp8s0"
+ONBOOT="yes"
+
+
+sudo firewall-cmd --permanent --direct --passthrough ipv4 -t nat -I POSTROUTING -o enp8s0 -j MASQUERADE -s 100.100.100.0/24
+sudo firewall-cmd --reload
+

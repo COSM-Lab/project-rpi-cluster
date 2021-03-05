@@ -38,8 +38,7 @@
       image: prom/prometheus
       state: started
       restart: yes
-      ports:
-      - "9090:9090"
+      network_mode: host
       volumes:
         - /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml:/etc/prometheus/prometheus.yml
         - prometheus-storage:/prometheus

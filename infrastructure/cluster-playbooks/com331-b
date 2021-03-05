@@ -4,6 +4,11 @@
 
 sudo yum install gcc-c++ make
 
+yum install iptables-services net-tools
+
+
+apt install dnsutils wget
+
 authorized_keys
 
 save private key sdPiPilots key

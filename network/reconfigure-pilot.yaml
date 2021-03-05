@@ -39,6 +39,21 @@
       line: 'nodhcp'
       state: present
 
+  - name: Edit static routers
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static routers=\d*.\d*.\d*.\d*'
+      line: 'static routers=100.100.100.100'
+      state: present
+  
+
+  - name: Edit static domain_name_servers
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static domain_name_servers=.*$'
+      line: "static domain_name_servers=100.100.100.100 8.8.8.8" 
+      state: present         
+      
   - name: Edit static ip_address
     lineinfile:
       path: '{{ config_path }}'
@@ -93,26 +108,7 @@
       hostname:
         name: pilot-{{target_pilot}}
 
-  # - name: Edit static routers
-  #   lineinfile:
-  #     path: '{{ config_path }}'
-  #     regexp: '^static routers=\d*.\d*.\d*.\d*'
-  #     line: 'static routers=192.168.88.1'
-  #     state: present
-   
-
-  # - name: Edit static domain_name_servers
-  #   lineinfile:
-  #     path: '{{ config_path }}'
-  #     regexp: '^static domain_name_servers=.*$'
-  #     line: "static domain_name_servers=192.168.88.1 8.8.8.8" 
-  #     state: present          
-
-
-
-
-
-
+ 
 
   # - name: Check ip correctness
   #   shell: "echo {{ansible_default_ipv4.address}}"

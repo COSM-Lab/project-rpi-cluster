@@ -1,45 +1,35 @@
 ---
 - name: Docker installation
-  hosts: pilot-11
+  hosts: cluster
   gather_facts: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  #become: true
+  become: true
   tasks:
+  
+  - name: Install python3-pip
+    apt:
+      name:
+        - python3-pip
+        - apt-transport-https
+        - ca-certificates 
+        - curl 
+        - software-properties-common
+      state: present
 
-  # - name: Install python2
-  #   apt:
-  #     name: python2
-  #     state: present
-  #   become: true
-
-  - name: Change sshd config for client
-    ansible.builtin.lineinfile:
-      path: /etc/ssh/sshd_config
-      regexp: '^ClientAliveInterval'
-      line: ClientAliveInterval 300
-    become: true
-
-  - name: Change sshd config for client
-    ansible.builtin.lineinfile:
-      path: /etc/ssh/sshd_config
-      regexp: '^ClientAliveCountMax'
-      line: ClientAliveCountMax 5
-    become: true
-
-  - name: Change sshd config for client
-    ansible.builtin.lineinfile:
-      path: /etc/ssh/sshd_config
-      regexp: '^TCPKeepAlive yes'
-      line: TCPKeepAlive yes
-    become: true
+  - name: Add docker gpg key
+    ansible.builtin.apt_key:
+      url:  https://download.docker.com/linux/raspbian/gpg
+      state: present
+      validate_certs: no
 
   - name: Download docker.sh installer
     get_url:
-      url: https://get.docker.com/rootless
+      url: https://get.docker.com/
       dest: ~/docker.sh
       validate_certs: no
-      
+
+
   - name: Change file ownership, group and permissions
     ansible.builtin.file:
       path:  ~/docker.sh
@@ -47,16 +37,28 @@
       group: pilot
       mode: u+x,g-x
 
-  - name: Run a docker installation script 
-    ansible.builtin.shell:  ~/docker.sh
-    retries: 30
-    delay: 10
+  - name: Change curl insecure connection
+    ansible.builtin.lineinfile:
+      path: ~/docker.sh
+      regexp: '\$sh_c \"curl -fsSL \\\"\$DOWNLOAD_URL/linux/\$lsb_dist/gpg\\\" \| apt-key add -qq - >/dev/null\"'
+      line: '$sh_c "curl -k -fsSL \"$DOWNLOAD_URL/linux/$lsb_dist/gpg\" | apt-key add -qq -"'
 
+  - name: Run a docker installation script 
+    shell:  ~/docker.sh
+        
   - name: Add the user 'pilot' appending the group 'docker'
     ansible.builtin.user:
       name: pilot
       groups: docker
       append: yes
+
+
+  - name: Install ansible python packages
+    pip:
+      name:
+        - docker-py
+        - requests
+      executable: pip3
 
   - name: Start node-exporter container 
     docker_container:
