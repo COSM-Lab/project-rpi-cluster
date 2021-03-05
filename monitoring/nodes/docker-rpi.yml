@@ -66,6 +66,7 @@
       image: quay.io/prometheus/node-exporter:latest
       state: started
       restart: yes
+      restart_policy: always
       network_mode: host
       pid_mode: host
       read_only: yes

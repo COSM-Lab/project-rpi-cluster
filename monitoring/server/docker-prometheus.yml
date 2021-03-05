@@ -38,6 +38,7 @@
       image: prom/prometheus
       state: started
       restart: yes
+      restart_policy: always
       network_mode: host
       volumes:
         - /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml:/etc/prometheus/prometheus.yml
@@ -59,6 +60,7 @@
       image: grafana/grafana
       state: started
       restart: yes
+      restart_policy: always
       ports:
         - "3000:3000"
       volumes:
@@ -74,6 +76,7 @@
       image: quay.io/prometheus/node-exporter:latest
       state: started
       restart: yes
+      restart_policy: always
       network_mode: host
       pid_mode: host
       read_only: yes
