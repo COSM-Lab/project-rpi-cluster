@@ -1,0 +1,58 @@
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-time-synchronization-on-debian-10
+# https://wiki.archlinux.org/index.php/systemd-timesyncd
+---
+- name: Sync clock
+  hosts: cluster
+  become: true
+  gather_facts: false
+ 
+  tasks:
+  
+  - name: Delete ntp
+    apt:
+      name: ntp
+      state: absent
+
+  # - name: Install ntp
+  #   apt:
+  #     name: systemd-timesyncd
+  #     state: latest
+
+  # - name: Change ntp config to systemd
+  #   copy:
+  #     content: 'server 100.100.100.100' 
+  #     dest: /etc/ntp.conf
+  
+  - name: Change ntp config to systemd
+    copy:
+      src:  "{{ playbook_dir }}/timesyncd.conf"
+      dest: /etc/systemd/timesyncd.conf
+
+  - name: Reload systemd-timesyncd systemd 
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: systemd-timesyncd
+      enabled: yes
+
+  - name: check ntp
+    command: timedatectl
+
+  # - name: restart ntp
+  #   command: systemctl restart ntp
+  
+  # - name: autorun
+  #   command: systemctl enable ntp
+
+# - name: Install packages
+#   hosts: localhost
+#   become: true
+#   gather_facts: false
+ 
+#   tasks:
+#   - name: Reload ntp systemd 
+#     systemd:
+#       state: restarted
+#       daemon_reload: yes
+#       name: ntpd
+#       enabled: yes
