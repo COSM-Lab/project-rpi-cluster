@@ -1,20 +1,75 @@
 ---
 - name: Install packages
-  hosts: cluster
+  hosts: pilot-11
   become: true
   gather_facts: false
  
   tasks:
 
+  - name: Download slurm archive
+    get_url: 
+      url:  https://download.schedmd.com/slurm/slurm-20.11.4.tar.bz2
+      dest: /tmp/slurm-20.11.4.tar.bz2
+      validate_certs: false
 
-  - name: Download foo.conf
-    get_url:
-      url:  https://github.com/dun/munge/archive/munge-0.5.14.tar.gz
-      dest: /tmp/munge-0.5.14.tar.gz
-
-  - name: Extract foo.tgz into /var/lib/foo
+  - name: Unpack slurm archive
     ansible.builtin.unarchive:
-      src: /tmp/munge-0.5.14.tar.gz
-      dest: /tmp/munge
+      src: /tmp/slurm-20.11.4.tar.bz2
+      dest: /tmp/
+      remote_src: yes
+ 
+  - name: Install dependencies
+    apt:
+      name: 
+        - libssl-dev
+        - bzip2
+        - pkgconf
+      state: latest
 
+  - name: Configure slurm
+    command: 
+      argv:
+        - ./configure 
+        - --sysconfdir=/etc  
+        - --prefix=/usr
+        # - --localstatedir=/var
+        # - --runstatedir=/run
+        # - --sbindir=/usr/sbin
+    args:
+      chdir: /tmp/slurm-20.11.4
+    
+  # - name: Make munge
+  #   shell: make
+  #   args:
+  #     chdir: /tmp/munge-munge-0.5.13
+
+  # - name: Make check munge
+  #   shell: make check
+  #   args:
+  #     chdir: /tmp/munge-munge-0.5.13
+
+  # - name: Make install munge
+  #   shell: make install
+  #   args:
+  #     chdir: /tmp/munge-munge-0.5.13
+
+  # - name: Create munge key
+  #   shell: dd if=/dev/random bs=1 count=1024 > /etc/munge/munge.key
+
+  # - name: Change munge key permissions
+  #   file:
+  #     path: /etc/munge/munge.key
+  #     owner: root
+  #     group: root
+  #     mode: '0600'
+
+    
+  # - name: Create munge key
+  #   shell: /usr/sbin/munged
+
+  # # - name: Enable munge 
+  # #   sysvinit:
+  # #       name: munge
+  # #       state: started
+  # #       enabled: yes
     
