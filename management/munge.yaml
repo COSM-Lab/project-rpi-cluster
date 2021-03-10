@@ -1,0 +1,98 @@
+# https://dun.github.io/munge/
+
+- name: Install munge for authentication
+  hosts: localhost
+  gather_facts: false
+ 
+  tasks:
+  # https://github.com/dun/munge/blob/munge-0.5.13/QUICKSTART
+  - name: Create munge key
+    shell: dd if=/dev/urandom bs=1 count=1024 > /var/tmp/munge.key
+
+### 
+
+- name: Install munge for authentication
+  hosts: cluster
+  become: true
+  gather_facts: false
+ 
+  tasks:
+
+
+  - name: Download munge archive
+    get_url: 
+      url:  https://github.com/dun/munge/archive/munge-0.5.13.tar.gz
+      dest: /tmp/munge-0.5.13.tar.gz
+      validate_certs: false
+
+  - name: Unpack munge archive
+    ansible.builtin.unarchive:
+      src: /tmp/munge-0.5.13.tar.gz
+      dest: /tmp/
+      remote_src: yes
+
+  - name: Install dependencies
+    apt:
+      name: 
+        - libssl-dev
+        - bzip2
+        - pkgconf
+      state: latest
+ 
+  - name: Configure munge
+    command: 
+      argv:
+        - ./configure 
+        - --sysconfdir=/etc  
+        - --prefix=/usr
+        - --localstatedir=/var
+        - --runstatedir=/run
+        - --sbindir=/usr/sbin
+    args:
+      chdir: /tmp/munge-munge-0.5.13
+    
+  - name: Make munge
+    shell: make
+    args:
+      chdir: /tmp/munge-munge-0.5.13
+
+  - name: Make check munge
+    shell: make check
+    args:
+      chdir: /tmp/munge-munge-0.5.13
+
+  - name: Make install munge
+    shell: make install
+    args:
+      chdir: /tmp/munge-munge-0.5.13
+ 
+  - name: Copy munge key to hosts 
+    copy:
+      src: /var/tmp/munge.key
+      dest: /etc/munge/munge.key
+
+  - name: Change munge key permissions
+    file:
+      path: /etc/munge/munge.key
+      owner: root
+      group: root
+      mode: '0600'
+
+  - name: Edit service user to root
+    lineinfile:
+      path: /lib/systemd/system/munge.service
+      regexp: '^User=munge'
+      line: User=root
+
+  - name: Edit service group to root
+    lineinfile:
+      path: /lib/systemd/system/munge.service
+      regexp: '^Group=munge'
+      line: Group=root
+
+  - name: Enable munge 
+    sysvinit:
+        name: munge
+        state: started
+        enabled: yes
+    

@@ -1,0 +1,39 @@
+---
+- name: Install packages
+  hosts: localhost
+  become: true
+  gather_facts: false
+ 
+  tasks:
+  - name: Download foo.conf
+    get_url:
+      url:  https://networkgenomics.com/try/mitogen-0.2.9.tar.gz
+      dest: /tmp/mitogen-0.2.9.tar.gz
+      validate_certs: false
+
+  - name: Download foo.conf
+    file:
+      path: /etc/mitogen
+      state: directory
+
+  - name: Extract foo.tgz into /var/lib/foo
+    ansible.builtin.unarchive:
+      src: /tmp/mitogen-0.2.9.tar.gz
+      dest: /etc/
+      remote_src: yes
+
+  - name: Add path to strategy_plugins in ansible configuration
+    lineinfile:
+      path: "/etc/ansible/ansible.cfg"
+      regexp: '(^|.)strategy_plugins\s*=\s*\S*$'
+      line: '#strategy_plugins   = /etc/mitogen-0.2.9/ansible_mitogen/plugins/strategy'
+
+
+  - name: Add mitogen_linear strategy in ansible configuration
+    lineinfile:
+      path: "/etc/ansible/ansible.cfg"
+      regexp: '(^|.)strategy\s*=\s*\S*$'
+      line: '#strategy = mitogen_linear'
+
+
+    
