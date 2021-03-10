@@ -1,0 +1,20 @@
+---
+- name: Install packages
+  hosts: cluster
+  become: true
+  gather_facts: false
+ 
+  tasks:
+
+
+  - name: Download foo.conf
+    get_url:
+      url:  https://github.com/dun/munge/archive/munge-0.5.14.tar.gz
+      dest: /tmp/munge-0.5.14.tar.gz
+
+  - name: Extract foo.tgz into /var/lib/foo
+    ansible.builtin.unarchive:
+      src: /tmp/munge-0.5.14.tar.gz
+      dest: /tmp/munge
+
+    
