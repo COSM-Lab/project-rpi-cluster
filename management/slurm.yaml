@@ -18,13 +18,17 @@
       dest: /tmp/
       remote_src: yes
  
-  - name: Install dependencies
-    apt:
-      name: 
-        - libssl-dev
-        - bzip2
-        - pkgconf
-      state: latest
+  # - name: Install dependencies
+  #   apt:
+  #     name: 
+  #       - libssl-dev
+  #       - bzip2
+  #       - pkgconf
+  #     state: latest
+
+
+  # TODO: Make support of arm64 Raspbian pi-gen 
+  # https://github.com/RPi-Distro/pi-gen/tree/arm64
 
   - name: Configure slurm
     command: 
