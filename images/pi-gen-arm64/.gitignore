@@ -1,5 +1,6 @@
 deploy/*
 !deploy/**/*.zip
+!deploy/**/*.gitkeep
 work/*
 !config
 postrun.sh
