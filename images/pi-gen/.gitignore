@@ -1,5 +1,5 @@
 deploy/*
-!deploy/**/*.zip
+deploy/**/*.zip
 work/*
 !config
 postrun.sh

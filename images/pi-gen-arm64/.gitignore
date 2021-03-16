@@ -1,5 +1,5 @@
 deploy/*
-!deploy/**/*.zip
+deploy/**/*.zip
 !deploy/**/*.gitkeep
 !deploy/**/*image_dd.sh
 work/*
