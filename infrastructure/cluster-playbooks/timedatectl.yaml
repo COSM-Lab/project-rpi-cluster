@@ -1,0 +1,17 @@
+---
+- name: Configure timedatectl
+  hosts: cluster
+  become: true
+
+  tasks:
+  - name: set ntp true
+    command: sudo timedatectl set-ntp true
+
+  - name: restart service 
+    command: sudo systemctl restart systemd-timesyncd.service
+
+  - name: reload daemon
+    command: sudo systemctl daemon-reload
+
+  - name: show date
+    command: date

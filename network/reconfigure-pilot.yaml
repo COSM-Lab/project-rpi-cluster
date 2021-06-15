@@ -6,7 +6,7 @@
   vars: 
     config_path: /etc/dhcpcd.conf
     source_pilot: X
-    target_pilot: 5
+    # target_pilot: 5
 
   tasks:
 
@@ -19,7 +19,10 @@
 
   # - name: Get number of hostname
   #   shell: "echo  {{ansible_hostname | regex_replace('[^0-9]','')}}"
-
+  - name: Wait 300 seconds, but only start checking after 60 seconds
+    wait_for_connection:
+      delay: 5
+      timeout: 300
 
 
 ### TODO: check 127.0.1.1 in /etc/hosts      
@@ -83,8 +86,8 @@
   become: true
   vars: 
     config_path: /etc/dhcpcd.conf
-    source_pilot: 3
-    target_pilot: 5
+    # source_pilot: 3
+    # target_pilot: 5
 
   tasks:
     # - name: Restart sshd service

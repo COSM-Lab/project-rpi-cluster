@@ -1,0 +1,8 @@
+---
+- name: Turn off the cluster
+  hosts: cluster
+  become: true
+
+  tasks:
+  - name: Turn off the cluster
+    command: poweroff

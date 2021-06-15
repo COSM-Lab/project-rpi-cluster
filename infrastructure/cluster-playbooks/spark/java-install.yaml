@@ -1,0 +1,17 @@
+---
+- name: Install JDK 11
+  hosts: cluster
+  become: true
+
+  tasks:
+  - name: update all
+    raw: apt-get update 
+
+  - name: install java
+    apt:
+      name: openjdk-8-jdk
+      state: latest
+      
+  - name: check java versiom
+    command: java -version    
+  

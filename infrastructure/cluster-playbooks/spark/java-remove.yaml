@@ -1,0 +1,26 @@
+---
+- name: Remove JDK 11
+  hosts: cluster
+  become: true
+
+  tasks:
+
+  - name: Remove java
+    apt:
+      pkg: openjdk-11-jre-headless
+      state: absent
+  
+  - name: Remove java
+    apt:
+      pkg: openjdk-11-jre
+      state: absent
+
+  - name: Remove java
+    apt:
+      pkg: openjdk-11-jdk-headless
+      state: absent
+
+  - name: Remove java
+    apt:
+      pkg: openjdk-11-jdk
+      state: absent
