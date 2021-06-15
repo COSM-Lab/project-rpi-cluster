@@ -1,56 +1,67 @@
 ---
 - name: Docker installation
-  hosts: cluster
+  hosts: wing_down
   gather_facts: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
   become: true
   tasks:
   
-  - name: Install python3-pip
+  - name: Install necessary packages
     apt:
       name:
+        - ntpdate
         - python3-pip
-        - apt-transport-https
-        - ca-certificates 
-        - curl 
-        - software-properties-common
+        # - apt-transport-https
+        # - ca-certificates 
+        # - curl 
+        # - software-properties-common
       state: present
 
-  - name: Add docker gpg key
-    ansible.builtin.apt_key:
-      url:  https://download.docker.com/linux/raspbian/gpg
-      state: present
-      validate_certs: no
+  ### TODO: Not to be hardcoded
+  - name: Sync time with ntpdate
+    shell: sudo ntpdate -s 100.100.100.100
 
-  - name: Download docker.sh installer
-    get_url:
-      url: https://get.docker.com/
-      dest: ~/docker.sh
-      validate_certs: no
+  - name: Populate service facts
+    ansible.builtin.service_facts:
+
+  - name: Docker installation workflow
+    block:
+    - name: Add docker gpg key
+      ansible.builtin.apt_key:
+        url:  https://download.docker.com/linux/raspbian/gpg
+        state: present
+        validate_certs: no
+
+    - name: Download docker.sh installer
+      get_url:
+        url: https://get.docker.com/
+        dest: ~/docker.sh
+        validate_certs: no
 
 
-  - name: Change file ownership, group and permissions
-    ansible.builtin.file:
-      path:  ~/docker.sh
-      owner: pilot
-      group: pilot
-      mode: u+x,g-x
+    - name: Change file ownership, group and permissions
+      ansible.builtin.file:
+        path:  ~/docker.sh
+        owner: pilot
+        group: pilot
+        mode: u+x,g-x
 
-  - name: Change curl insecure connection
-    ansible.builtin.lineinfile:
-      path: ~/docker.sh
-      regexp: '\$sh_c \"curl -fsSL \\\"\$DOWNLOAD_URL/linux/\$lsb_dist/gpg\\\" \| apt-key add -qq - >/dev/null\"'
-      line: '$sh_c "curl -k -fsSL \"$DOWNLOAD_URL/linux/$lsb_dist/gpg\" | apt-key add -qq -"'
+    - name: Change curl insecure connection
+      ansible.builtin.lineinfile:
+        path: ~/docker.sh
+        regexp: '\$sh_c \"curl -fsSL \\\"\$DOWNLOAD_URL/linux/\$lsb_dist/gpg\\\" \| apt-key add -qq - >/dev/null\"'
+        line: '$sh_c "curl -k -fsSL \"$DOWNLOAD_URL/linux/$lsb_dist/gpg\" | apt-key add -qq -"'
 
-  - name: Run a docker installation script 
-    shell:  ~/docker.sh
-        
-  - name: Add the user 'pilot' appending the group 'docker'
-    ansible.builtin.user:
-      name: pilot
-      groups: docker
-      append: yes
+    - name: Run a docker installation script 
+      shell:  ~/docker.sh
+          
+    - name: Add the user 'pilot' appending the group 'docker'
+      ansible.builtin.user:
+        name: pilot
+        groups: docker
+        append: yes
+    when: "'docker' not in services"
 
 
   - name: Install ansible python packages

@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     ansible_python_interpreter: /usr/bin/python3
-  # become: true
+  become: true
   tasks:
 
   #TODO: ansible-galaxy collection install community.general --ignore-certs
@@ -22,14 +22,14 @@
       name: prometheus
       state: absent      
 
-  - name: Create a volume
+  - name: Create a prometheus volume
     docker_volume:
-      name: prometheus-storage
+      name: prometheus-data
 
   - name: Template a prometheus config file
     ansible.builtin.template:
-      src: /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml.j2
-      dest: /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml
+      src: /home/com331-b/project-rpi-cluster/monitoring/server/prometheus/prometheus.yml.j2
+      dest: /etc/prometheus/prometheus.yml
 
     
   - name: Start prometheus monitoring container on server
@@ -39,10 +39,18 @@
       state: started
       restart: yes
       restart_policy: always
-      network_mode: host
+      ports:
+        - 9090:9090
+      user: root
+      command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=2d'
       volumes:
-        - /home/com331-b/project-rpi-cluster/monitoring/server/prometheus.yml:/etc/prometheus/prometheus.yml
-        - prometheus-storage:/prometheus
+        - /etc/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+        - prometheus-data:/prometheus
 
 
   - name: Stop grafana container on server
@@ -50,9 +58,10 @@
       name: grafana
       state: absent
 
-  - name: Create a volume
+  - name: Create a grafana volume
     docker_volume:
-      name: grafana-storage
+      name: grafana-data
+      recreate: always
 
   - name: Start grafana container on server
     docker_container:
@@ -64,11 +73,12 @@
       ports:
         - "3000:3000"
       volumes:
-        - grafana-storage:/var/lib/grafana
+        - grafana-data:/var/lib/grafana
 
   - name: Create a volume
     docker_volume:
       name: node-exporter-storage
+      recreate: always
 
   - name: Start node-exporter container 
     docker_container:
