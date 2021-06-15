@@ -1,0 +1,25 @@
+Server: 
+
+sudo docker run -d \
+    -p 9090:9090 \
+    -v /home/com331-b/project-rpi-cluster/monitoring/prometheus.yml:/etc/prometheus/prometheus.yml \
+    prom/prometheus
+
+
+sudo docker run -d \
+  --net="host" \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  quay.io/prometheus/node-exporter:latest \
+  --path.rootfs=/host
+
+sudo docker run -d -p 3000:3000 grafana/grafana
+
+Nodes: 
+
+docker run -d \
+  --net="host" \
+  --pid="host" \
+  -v "/:/host:ro,rslave" \
+  quay.io/prometheus/node-exporter:latest \
+  --path.rootfs=/host

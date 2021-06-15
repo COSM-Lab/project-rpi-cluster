@@ -1,10 +1,6 @@
 ---
 - name: Docker installation
-  hosts: wing_down
   gather_facts: false
-  vars:
-    ansible_python_interpreter: /usr/bin/python3
-  become: true
   tasks:
   
   - name: Install necessary packages
