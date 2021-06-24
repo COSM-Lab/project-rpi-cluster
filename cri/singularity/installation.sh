@@ -12,6 +12,9 @@
 #     git \
 #     cryptsetup
 
+
+# https://github.com/hpcng/singularity/issues/4765 
+
 sudo apt-get update && \
 sudo apt-get install -y build-essential \
 libseccomp-dev pkg-config squashfs-tools cryptsetup
