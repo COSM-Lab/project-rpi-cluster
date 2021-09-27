@@ -86,13 +86,8 @@
   become: true
   vars: 
     config_path: /etc/dhcpcd.conf
-<<<<<<< HEAD
     # source_pilot: 3
     # target_pilot: 5
-=======
-    source_pilot: 3
-    target_pilot: 5
->>>>>>> b0c7d791530d8da6ec661ff317189cb339c01bfd
 
   tasks:
     # - name: Restart sshd service
