@@ -1,0 +1,118 @@
+---
+- name: Reconfigure source pilot
+  hosts: 'pilot-{{ source_pilot }}'
+  gather_facts: false
+  become: true
+  vars: 
+    config_path: /etc/dhcpcd.conf
+    source_pilot: X
+    # target_pilot: 5
+
+  tasks:
+
+  # - name: Delete file
+  #   file: 
+  #     path: dhcpcd.conf
+  #     state: absent
+
+### TODO: Consider reversed operation: from ip address set apropriate  hostname
+
+  # - name: Get number of hostname
+  #   shell: "echo  {{ansible_hostname | regex_replace('[^0-9]','')}}"
+  - name: Wait 300 seconds, but only start checking after 60 seconds
+    wait_for_connection:
+      delay: 5
+      timeout: 300
+
+
+### TODO: check 127.0.1.1 in /etc/hosts      
+
+  - name: Edit /etc/hosts
+    lineinfile:
+      path: /etc/hosts
+      regexp: '127.0.0.1.*localhost'
+      line: '127.0.0.1 localhost pilot-{{target_pilot}}'
+      state: present
+
+  - name: Make sure dhcp is disabled
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^nodhcp$'
+      insertafter: '^interface eth0$'
+      line: 'nodhcp'
+      state: present
+
+  - name: Edit static routers
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static routers=\d*.\d*.\d*.\d*'
+      line: 'static routers=100.100.100.254'
+      state: present
+  
+
+  - name: Edit static domain_name_servers
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static domain_name_servers=.*$'
+      line: "static domain_name_servers=100.100.100.254 8.8.8.8 100.100.100.100" 
+      state: present         
+      
+  - name: Edit static ip_address
+    lineinfile:
+      path: '{{ config_path }}'
+      regexp: '^static ip_address=\d*.\d*.\d*.\d*'
+      line: 'static ip_address=100.100.100.{{ target_pilot }}/24' 
+      state: present
+
+  - name: Restart dhcpcd service
+    systemd:
+      state: restarted
+      daemon_reload: yes
+      name: dhcpcd
+    async: 10
+    poll: 0
+    ignore_errors: true
+    
+
+  - name: Wait for connection
+    wait_for_connection:
+      timeout: 120
+    delegate_to: 'pilot-{{ target_pilot }}'
+
+
+- name: Reconfigure target pilot
+  hosts: 'pilot-{{ target_pilot }}'
+  gather_facts: true
+  become: true
+  vars: 
+    config_path: /etc/dhcpcd.conf
+    # source_pilot: 3
+    # target_pilot: 5
+
+  tasks:
+    # - name: Restart sshd service
+    #   systemd:
+    #     state: restarted
+    #     daemon_reload: yes
+    #     name: sshd
+
+    - name: Flush ip addresses on eth0 interface
+      shell: ip addr flush dev eth0
+      async: 10
+      poll: 0
+
+    - name: Wait for connection
+      wait_for_connection:
+        connect_timeout: 5
+        delay: 10
+        timeout: 120
+
+    - name: Set a hostname
+      hostname:
+        name: pilot-{{target_pilot}}
+
+ 
+
+  # - name: Check ip correctness
+  #   shell: "echo {{ansible_default_ipv4.address}}"
+
