@@ -1,0 +1,24 @@
+---
+# - name: k3s installation
+#   hosts: pilot-11
+#   become: true
+#   gather_facts: false
+
+#   tasks:
+
+#   - name: Uninstall k3s
+#     command: /usr/local/bin/k3s-uninstall.sh 
+
+- name: k3s installation
+  hosts: pilot-11
+  gather_facts: false
+
+  tasks:
+
+  - name: Uninstall k3s
+    command: /usr/local/bin/k3s-uninstall.sh 
+
+
+
+
+

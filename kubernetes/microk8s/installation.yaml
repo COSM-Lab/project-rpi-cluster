@@ -1,0 +1,12 @@
+---
+- name: microk8s installation
+  hosts: pilot-11
+  become: true
+  gather_facts: false
+
+  tasks:
+  - name: Install a list of packages
+    apt:
+      name: snapd
+      state: present
+

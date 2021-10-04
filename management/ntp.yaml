@@ -9,10 +9,14 @@
  
   tasks:
   
-  - name: Delete ntp
+  - name: Download ntpdate
     apt:
-      name: ntp
-      state: absent
+      name: ntpdate
+      state: present
+    
+  - name: check ntp
+    command: ntpdate -u 100.100.100.100
+
 
   # - name: Install ntp
   #   apt:
@@ -24,20 +28,20 @@
   #     content: 'server 100.100.100.100' 
   #     dest: /etc/ntp.conf
   
-  - name: Change ntp config to systemd
-    copy:
-      src:  "{{ playbook_dir }}/timesyncd.conf"
-      dest: /etc/systemd/timesyncd.conf
+  # - name: Change ntp config to systemd
+  #   copy:
+  #     src:  "{{ playbook_dir }}/timesyncd.conf"
+  #     dest: /etc/systemd/timesyncd.conf
 
-  - name: Reload systemd-timesyncd systemd 
-    systemd:
-      state: restarted
-      daemon_reload: yes
-      name: systemd-timesyncd
-      enabled: yes
+  # - name: Reload systemd-timesyncd systemd 
+  #   systemd:
+  #     state: restarted
+  #     daemon_reload: yes
+  #     name: systemd-timesyncd
+  #     enabled: yes
 
-  - name: check ntp
-    command: timedatectl
+  # - name: check ntp
+  #   command: timedatectl
 
   # - name: restart ntp
   #   command: systemctl restart ntp

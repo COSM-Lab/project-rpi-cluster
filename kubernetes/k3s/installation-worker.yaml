@@ -1,0 +1,95 @@
+---
+- name: k3s installation
+  hosts: pilot-13
+  become: true
+  gather_facts: false
+
+  tasks:
+
+  - name: Reboot immediately if there was a change.
+    shell: 'truncate -s-1 /boot/cmdline.txt | sudo echo -n " cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory " >> /boot/cmdline.txt'
+    register: task_result
+
+  - name: Replace a localhost entry with our own
+    ansible.builtin.lineinfile:
+      path: /etc/hosts
+      regexp: ' cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory '
+      line:  cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory 
+
+  # - name: Insert a line at the end of a file.
+  #   replace:
+  #     dest: /boot/cmdline.txt
+  #     replace: 'cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory '
+  #     # state: present
+  #     regexp: '^'
+  #     # insertbefore: BOF
+  #   register: task_result
+
+  # - name: Insert a line at the end of a file.
+  #   lineinfile:
+  #     path: /boot/cmdline.txt
+  #     line: cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory
+  #     state: present
+  #     insertbefore: BOF
+  #   register: task_result
+
+  - name: Reboot immediately if there was a change.
+    shell: "sleep 5 && reboot"
+    async: 1
+    poll: 0
+    when: task_result is changed
+
+  - name: Wait for the reboot to complete if there was a change.
+    wait_for_connection:
+      connect_timeout: 300
+      delay: 60
+      timeout: 300
+    when: task_result is changed
+
+  - name: Install necessary packages
+    apt:
+      name:
+        - ntpdate
+        - python3-pip
+        # - apt-transport-https
+        - ca-certificates 
+        # - curl 
+        # - software-properties-common
+      state: present
+
+  - name: Update CA certificates
+    command: sudo update-ca-certificates -f
+
+  # - name: Install a list of packages
+  #   copy:
+  #     src: k3s-1.20.11-k3s1.tar.gz
+  #     dest: /home/pilot
+
+  # - name: Extract foo.tgz into /var/lib/foo
+  #   ansible.builtin.unarchive:
+  #     src: k3s-1.20.11-k3s1.tar.gz
+  #     dest: /home/pilot
+
+  # - name: Extract foo.tgz into /var/lib/foo
+  #   command: ./install.sh
+  #   args:
+  #     chdir: /home/pilot/k3s-1.20.11-k3s1
+
+  - name: Disable swap
+    command: sudo swapoff -a 
+
+  - name: Launch k3s worker
+    shell: curl -sfL https://get.k3s.io | K3S_TOKEN="pilot" K3S_URL=https://pilot-11:6443/  sh -s
+    become: false 
+
+  # - name: Change file ownership, group and permissions
+  #   ansible.builtin.file:
+  #     path:  /etc/rancher/k3s/k3s.yaml
+  #     owner: pilot
+  #     group: pilot
+  #     mode: u+x,g-x
+
+# K10ae8b54b52855c27ab6377fa6748a6d20b15878426efb7676cf57f1a4b77fba90::server:pilot
+
+
+
