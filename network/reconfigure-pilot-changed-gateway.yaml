@@ -46,7 +46,7 @@
     lineinfile:
       path: '{{ config_path }}'
       regexp: '^static routers=\d*.\d*.\d*.\d*'
-      line: 'static routers=100.100.100.100'
+      line: 'static routers=100.100.100.254'
       state: present
   
 
@@ -54,7 +54,7 @@
     lineinfile:
       path: '{{ config_path }}'
       regexp: '^static domain_name_servers=.*$'
-      line: "static domain_name_servers=100.100.100.100 8.8.8.8" 
+      line: "static domain_name_servers=100.100.100.254 8.8.8.8 100.100.100.100" 
       state: present         
       
   - name: Edit static ip_address
