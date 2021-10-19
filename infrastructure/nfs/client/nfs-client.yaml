@@ -1,0 +1,26 @@
+---
+- name: NFS client installation
+  hosts: pilot-1
+  gather_facts: false
+  # vars:
+  #   ansible_python_interpreter: /usr/bin/python3
+  become: true
+  tasks:
+
+  # - name: Install nfs packages
+  #   apt:
+  #     name:
+  #       - nfs-common 
+  #     state: present
+
+  - name: Creates directory
+    file:
+      path: /home/pilot/cloud
+      state: directory
+
+  - name: Mount NFS volumes on client
+    ansible.posix.mount:
+      src: 100.100.100.100:/home/pilot/cloud
+      path: /home/pilot/cloud
+      state: mounted
+      fstype: nfs

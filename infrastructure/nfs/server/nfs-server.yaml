@@ -1,0 +1,43 @@
+---
+- name: NFS server installation
+  hosts: localhost
+  gather_facts: false
+  # vars:
+  #   ansible_python_interpreter: /usr/bin/python3
+  become: true
+  tasks:
+  - name: Install nfs packages
+    yum:
+      name:
+        - nfs-utils 
+      state: present
+
+  - name: Recursively change ownership of a directory
+    ansible.builtin.file:
+      path: /mnt/storage
+      state: directory
+      mode: '0777'
+      recurse: yes
+      owner: nfsnobody
+      group: nfsnobody
+
+  - name: Creates directory
+    file:
+      path: /home/pilot/cloud
+      state: directory
+      
+  - name: Put righst for pilot file sharing
+    lineinfile:
+      dest: /etc/exports
+      line: /home/pilot/cloud *(rw,sync,no_root_squash,no_subtree_check)
+      owner: pilot
+
+  - name: Apply changes to export file
+    command: exportfs -a
+
+  - name: Enable and start service nfs-serves
+    ansible.builtin.systemd:
+      name: nfs-server
+      state: started
+      enabled: yes
+      daemon_reload: yes
