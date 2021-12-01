@@ -1,6 +1,6 @@
 ---
 - name: k3s installation
-  hosts: pilot-13
+  hosts: pilot-15
   become: true
   gather_facts: false
 
@@ -33,32 +33,32 @@
   #     insertbefore: BOF
   #   register: task_result
 
-  - name: Reboot immediately if there was a change.
-    shell: "sleep 5 && reboot"
-    async: 1
-    poll: 0
-    when: task_result is changed
+  # - name: Reboot immediately if there was a change.
+  #   shell: "sleep 5 && reboot"
+  #   async: 1
+  #   poll: 0
+  #   when: task_result is changed
 
-  - name: Wait for the reboot to complete if there was a change.
-    wait_for_connection:
-      connect_timeout: 300
-      delay: 60
-      timeout: 300
-    when: task_result is changed
+  # - name: Wait for the reboot to complete if there was a change.
+  #   wait_for_connection:
+  #     connect_timeout: 300
+  #     delay: 60
+  #     timeout: 300
+  #   when: task_result is changed
 
-  - name: Install necessary packages
-    apt:
-      name:
-        - ntpdate
-        - python3-pip
-        # - apt-transport-https
-        - ca-certificates 
-        # - curl 
-        # - software-properties-common
-      state: present
+  # - name: Install necessary packages
+  #   apt:
+  #     name:
+  #       - ntpdate
+  #       - python3-pip
+  #       # - apt-transport-https
+  #       - ca-certificates 
+  #       # - curl 
+  #       # - software-properties-common
+  #     state: present
 
-  - name: Update CA certificates
-    command: sudo update-ca-certificates -f
+  # - name: Update CA certificates
+  #   command: sudo update-ca-certificates -f
 
   # - name: Install a list of packages
   #   copy:
@@ -79,7 +79,7 @@
     command: sudo swapoff -a 
 
   - name: Launch k3s worker
-    shell: curl -sfL https://get.k3s.io | K3S_TOKEN="pilot" K3S_URL=https://pilot-11:6443/  sh -s
+    shell: curl -sfL https://get.k3s.io | K3S_TOKEN="pilot" K3S_URL=https://pilot-11:6443/  sh -s -v
     become: false 
 
   # - name: Change file ownership, group and permissions

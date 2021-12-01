@@ -1,6 +1,6 @@
 ---
 - name: NFS client installation
-  hosts: "{{ target }}"
+  hosts: pilot
 
   gather_facts: false
   # vars:

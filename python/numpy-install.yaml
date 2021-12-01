@@ -1,0 +1,18 @@
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-time-synchronization-on-debian-10
+# https://wiki.archlinux.org/index.php/systemd-timesyncd
+
+---
+- name: Install numpy
+  hosts: "{{ target }}"
+  become: true
+  gather_facts: false
+ 
+  tasks:
+  
+  - name: Install pip
+    apt:
+      name: python-pip
+      state: present
+
+  - name: Install numpy
+    shell: pip install numpy

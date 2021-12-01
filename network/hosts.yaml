@@ -1,0 +1,13 @@
+---
+- name: Set /etc/hosts
+  hosts: "{{ target }}"
+  become: true
+
+  tasks:
+    - name: Copying /etc/hosts contnet
+      copy:
+        src: /etc/hosts
+        dest: /etc/hosts
+        owner: root
+        group: root
+        mode: '0644'

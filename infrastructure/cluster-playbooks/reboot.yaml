@@ -1,0 +1,8 @@
+---
+- name: Reboot the target nodes
+  hosts: "{{ target }}"
+  become: true
+
+  tasks:
+  - name: Reboot
+    command: reboot

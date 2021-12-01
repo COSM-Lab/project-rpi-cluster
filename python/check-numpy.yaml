@@ -1,0 +1,13 @@
+# https://www.digitalocean.com/community/tutorials/how-to-set-up-time-synchronization-on-debian-10
+# https://wiki.archlinux.org/index.php/systemd-timesyncd
+
+---
+- name: Check numpy
+  hosts: "{{ target }}"
+  become: true
+  gather_facts: false
+ 
+  tasks:
+  
+  - name: Check numpy
+    shell: python -m pip show numpy

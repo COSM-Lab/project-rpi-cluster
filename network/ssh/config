@@ -9,496 +9,497 @@ Host *
 Host pilot-1
 User pilot
 Hostname 100.100.100.1
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-2
 User pilot
 Hostname 100.100.100.2
-IdentityFile /home/com331-b/.ssh/sdPiLots
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-3
 User pilot
 Hostname 100.100.100.3
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-4
 User pilot
 Hostname 100.100.100.4
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-5
 User pilot
 Hostname 100.100.100.5
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-6
 User pilot
 Hostname 100.100.100.6
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-7
 User pilot
 Hostname 100.100.100.7
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-8
 User pilot
 Hostname 100.100.100.8
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-9
 User pilot
 Hostname 100.100.100.9
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-10
 User pilot
 Hostname 100.100.100.10
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-11
 User pilot
 Hostname 100.100.100.11
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-12
 User pilot
 Hostname 100.100.100.12
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-13
 User pilot
 Hostname 100.100.100.13
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-14
 User pilot
 Hostname 100.100.100.14
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-15
 User pilot
 Hostname 100.100.100.15
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-16
 User pilot
 Hostname 100.100.100.16
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-17
 User pilot
 Hostname 100.100.100.17
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-18
 User pilot
 Hostname 100.100.100.18
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-19
 User pilot
 Hostname 100.100.100.19
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-20
 User pilot
 Hostname 100.100.100.20
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-21
 User pilot
 Hostname 100.100.100.21
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-22
 User pilot
 Hostname 100.100.100.22
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-23
 User pilot
 Hostname 100.100.100.23
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-24
 User pilot
 Hostname 100.100.100.24
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-25
 User pilot
 Hostname 100.100.100.25
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-26
 User pilot
 Hostname 100.100.100.26
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-27
 User pilot
 Hostname 100.100.100.27
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-28
 User pilot
 Hostname 100.100.100.28
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-29
 User pilot
 Hostname 100.100.100.29
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-30
 User pilot
 Hostname 100.100.100.30
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-31
 User pilot
 Hostname 100.100.100.31
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-32
 User pilot
 Hostname 100.100.100.32
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-33
 User pilot
 Hostname 100.100.100.33
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-34
 User pilot
 Hostname 100.100.100.34
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-35
 User pilot
 Hostname 100.100.100.35
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-36
 User pilot
 Hostname 100.100.100.36
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-37
 User pilot
 Hostname 100.100.100.37
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-38
 User pilot
 Hostname 100.100.100.38
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-39
 User pilot
 Hostname 100.100.100.39
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-40
 User pilot
 Hostname 100.100.100.40
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-41
 User pilot
 Hostname 100.100.100.41
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-42
 User pilot
 Hostname 100.100.100.42
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-43
 User pilot
 Hostname 100.100.100.43
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-44
 User pilot
 Hostname 100.100.100.44
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-45
 User pilot
 Hostname 100.100.100.45
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-46
 User pilot
 Hostname 100.100.100.46
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-47
 User pilot
 Hostname 100.100.100.47
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-48
 User pilot
 Hostname 100.100.100.48
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-49
 User pilot
 Hostname 100.100.100.49
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-50
 User pilot
 Hostname 100.100.100.50
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-51
 User pilot
 Hostname 100.100.100.51
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-52
 User pilot
 Hostname 100.100.100.52
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-53
 User pilot
 Hostname 100.100.100.53
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-54
 User pilot
 Hostname 100.100.100.54
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-55
 User pilot
 Hostname 100.100.100.55
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-56
 User pilot
 Hostname 100.100.100.56
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-57
 User pilot
 Hostname 100.100.100.57
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-58
 User pilot
 Hostname 100.100.100.58
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-59
 User pilot
 Hostname 100.100.100.59
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-60
 User pilot
 Hostname 100.100.100.60
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-61
 User pilot
 Hostname 100.100.100.61
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-62
 User pilot
 Hostname 100.100.100.62
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-63
 User pilot
 Hostname 100.100.100.63
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-64
 User pilot
 Hostname 100.100.100.64
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-65
 User pilot
 Hostname 100.100.100.65
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-66
 User pilot
 Hostname 100.100.100.66
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-67
 User pilot
 Hostname 100.100.100.67
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-68
 User pilot
 Hostname 100.100.100.68
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-69
 User pilot
 Hostname 100.100.100.69
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-70
 User pilot
 Hostname 100.100.100.70
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-71
 User pilot
 Hostname 100.100.100.71
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-72
 User pilot
 Hostname 100.100.100.72
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-73
 User pilot
 Hostname 100.100.100.73
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-74
 User pilot
 Hostname 100.100.100.74
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-75
 User pilot
 Hostname 100.100.100.75
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-76
 User pilot
 Hostname 100.100.100.76
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-77
 User pilot
 Hostname 100.100.100.77
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-78
 User pilot
 Hostname 100.100.100.78
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-79
 User pilot
 Hostname 100.100.100.79
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-80
 User pilot
 Hostname 100.100.100.80
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-81
 User pilot
 Hostname 100.100.100.81
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-82
 User pilot
 Hostname 100.100.100.82
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-83
 User pilot
 Hostname 100.100.100.83
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-84
 User pilot
 Hostname 100.100.100.84
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-85
 User pilot
 Hostname 100.100.100.85
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-86
 User pilot
 Hostname 100.100.100.86
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-87
 User pilot
 Hostname 100.100.100.87
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-88
 User pilot
 Hostname 100.100.100.88
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-89
 User pilot
 Hostname 100.100.100.89
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-90
 User pilot
 Hostname 100.100.100.90
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-91
 User pilot
 Hostname 100.100.100.91
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-92
 User pilot
 Hostname 100.100.100.92
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-93
 User pilot
 Hostname 100.100.100.93
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-94
 User pilot
 Hostname 100.100.100.94
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-95
 User pilot
 Hostname 100.100.100.95
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-96
 User pilot
 Hostname 100.100.100.96
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-97
 User pilot
 Hostname 100.100.100.97
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-98
 User pilot
 Hostname 100.100.100.98
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
 
 Host pilot-X
 User pilot
 Hostname 100.100.100.99
-IdentityFile /home/com331-b/.ssh/sdPiLots
+IdentityFile ~/.ssh/sdPiLots
+
 

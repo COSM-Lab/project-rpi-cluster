@@ -1,0 +1,23 @@
+---
+- name: Fix ntp
+  hosts: "{{ target }}"
+  become: true
+
+  tasks:
+  - name: Add master as ntp provider
+    ansible.builtin.shell: printf "[Time]\nNTP=100.100.100.100\n" > /etc/systemd/timesyncd.conf
+    become: true   # Ensure that the highest permissions are used on the remote host
+
+  - name: Set ntp true
+    ansible.builtin.shell: timedatectl set-ntp true
+    become: true
+
+  - name: Restart timedatectl
+    ansible.builtin.systemd:
+      state: restarted
+      daemon_reload: yes
+      name: systemd-timesyncd
+
+  - name: get date
+    command: date
+ 

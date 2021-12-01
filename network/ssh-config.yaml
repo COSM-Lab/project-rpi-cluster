@@ -1,0 +1,37 @@
+- hosts: "{{ target }}"
+  become: true
+
+  tasks:
+
+    - name: copy key to node
+      copy:
+        src:   /home/com331-b/.ssh/sdPiLots
+        dest:  /home/pilot/.ssh/
+        owner: pilot
+        group: pilot
+        mode: '0600'
+
+    - name: ensure ssh config file exists
+      copy:
+        content: ""
+        dest: /home/pilot/.ssh/config
+        force: no
+        group: pilot
+        owner: pilot
+        mode: '0644'
+
+    - name: master to ssh config
+      blockinfile:
+        dest=/home/pilot/.ssh/config backup=yes
+        content="Host 100.100.100.100\n
+                 User com331-b\n
+                 Hostname 100.100.100.100\n
+                 IdentityFile /home/pilot/.ssh/sdPiLots\n\n
+                 Host master\n
+                 User com331-b\n
+                 Hostname 100.100.100.100\n
+                 IdentityFile /home/pilot/.ssh/sdPiLots\n\n
+                 Host pilot-*\n
+                 User pilot\n
+                 Hostname %h\n
+                 IdentityFile /home/pilot/.ssh/sdPiLots\n"
